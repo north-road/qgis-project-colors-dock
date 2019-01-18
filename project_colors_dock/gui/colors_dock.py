@@ -15,6 +15,7 @@ __revision__ = '$Format:%H$'
 
 from qgis.core import (
     QgsApplication,
+    QgsProject,
     QgsProjectColorScheme
 )
 from qgis.gui import (
@@ -56,11 +57,15 @@ class ColorsDock(QgsDockWidget):
         self.timer.setSingleShot(True)
         self.timer.setInterval(100)
 
+        self.block_updates = False
+
         def apply_colors():
             """
             Applies color changes to canvas and project
             """
+            self.block_updates = True
             self.color_list.saveColorsToScheme()
+            self.block_updates = False
             self.iface.mapCanvas().refreshAllLayers()
 
         self.timer.timeout.connect(apply_colors)
@@ -76,3 +81,14 @@ class ColorsDock(QgsDockWidget):
         self.color_list.model().dataChanged.connect(colors_changed)
         stack.setMainPanel(self.main_panel)
         self.setWidget(stack)
+
+        QgsProject.instance().projectColorsChanged.connect(self.repopulate_list)
+
+    def repopulate_list(self):
+        """
+        Rebuild the colors list when project colors are changed
+        """
+        if self.block_updates:
+            return
+        scheme = [s for s in QgsApplication.colorSchemeRegistry().schemes() if isinstance(s, QgsProjectColorScheme)][0]
+        self.color_list.setScheme(scheme)
