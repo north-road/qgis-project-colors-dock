@@ -38,7 +38,7 @@ install:
   - docker exec -it qgis-testing-environment sh -c "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/project_colors_dock"
   - docker exec -it qgis-testing-environment sh -c "ln -s /tests_directory/r /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/project_colors_dock"
 
-  - docker exec -it qgis-testing-environment sh -c "pip3 install -project_colors_dock /tests_directory/REQUIREMENTS_TESTING.txt"
+  - docker exec -it qgis-testing-environment sh -c "pip3 install -r /tests_directory/REQUIREMENTS_TESTING.txt"
 
 script:
 
