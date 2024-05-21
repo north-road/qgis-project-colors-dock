@@ -14,6 +14,8 @@ version=1.0.0
 author=North Road
 email=nyall@north-road.com
 
+supportsQt6=True
+
 about=A dock widget for live modification of linked project colors
 
 tracker=https://github.com/north-road/qgis-project-colors-dock/issues
