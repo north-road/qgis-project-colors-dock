@@ -72,7 +72,7 @@ class ProjectColorsDockPlugin:
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
         self.colors_dock = ColorsDock(self.iface)
-        self.iface.addDockWidget(Qt.RightDockWidgetArea, self.colors_dock)
+        self.iface.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.colors_dock)
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
